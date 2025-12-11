@@ -18,19 +18,16 @@ namespace BVD
             PersonList PersonList1 = new PersonList();
             PersonList PersonList2 = new PersonList();
             Console.WriteLine("Создение первого списка персон с помощью ввода");
-
-            Console.Write("Введите число человек в списке: ");
-            int n = int.Parse(Console.ReadLine());
             
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < 3; i++)
             {
                 PersonList1.AddPerson(ReadPerson());
             }
             PersonList1.AddPerson(ReadPerson());
             Console.WriteLine();
-            Console.WriteLine("Создение второго списка персон, данные, которых, заполняются рандомно");
+            Console.WriteLine("Создение второго списка персон рандомно");
 
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < 3; i++)
             {
                 PersonList2.AddPerson(GetRandomPerson());
             }
@@ -109,17 +106,17 @@ namespace BVD
                                typeof(ArgumentNullException),
                                typeof(ArgumentException),
                             },
-                        () => { string[] sex_male_list = ["мужчина", 
+                        () => { string[] gender_male_list = ["мужчина", 
                             "м", "1", "man", "m"];
-                                string[] sex_female_list = ["женщина", 
+                                string[] gender_female_list = ["женщина", 
                             "ж", "0", "woman", "w"];
                                 string ReadGenderPerson = Console.ReadLine();
-                                if (sex_male_list.Contains(
+                                if (gender_male_list.Contains(
                                     ReadGenderPerson.ToLower()))
                                 {
                                     PersonRead.Gender = Gender.Male;
                                 }
-                                else if (sex_female_list.Contains(
+                                else if (gender_female_list.Contains(
                                     ReadGenderPerson.ToLower()))
                                 {
                                     PersonRead.Gender = Gender.Female;
@@ -166,15 +163,15 @@ namespace BVD
                     personAction.Invoke();
                     break;
                 }
-                catch (Exception e)
+                catch (Exception exeption)
                 {
-                    if (personTypes.Contains(e.GetType()))
+                    if (personTypes.Contains(exeption.GetType()))
                     {
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine(exeption.Message);
                         Console.WriteLine($"Введите {personField} заново");
                         continue;
                     }
-                    throw e;
+                    throw exeption;
                 }
             }
         }
@@ -219,7 +216,6 @@ namespace BVD
                 Age, RandomPersonSex);
             Console.WriteLine(RandomPerson.GetInfo());
             return RandomPerson;
-
         }
     }
 }

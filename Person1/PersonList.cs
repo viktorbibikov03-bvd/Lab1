@@ -86,29 +86,7 @@ namespace Model
         /// <returns>Индекс человека</returns>
         /// <exception cref="ArgumentException">Исключение 
         /// при введении человека, которого нет в списке</exception>
-        public int GetIndex(Person person)
-        {
-            int Index = 0;
-            if (ListPerson.Contains(person))
-            {
-                foreach (Person InPerson in ListPerson)
-                {
-                    if (person == InPerson)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Index++;
-                    }
-                }
-            }
-            else
-            {
-                throw new ArgumentException("В списке нет этого человека!");
-            }
-            return Index;
-        }
+		public int GetIndex(Person person) => ListPerson.IndexOf(person);
 
         /// <summary>
         /// Очистка списка людей
@@ -117,5 +95,6 @@ namespace Model
         {
             ListPerson.Clear();
         }
+        public int Count => ListPerson.Count;
     }
 }

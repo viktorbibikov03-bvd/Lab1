@@ -38,7 +38,7 @@ namespace Model
         /// <summary>
         /// Cоздает экземпляр <see cref="Person">
         /// </summary>
-        //public Person() { }
+        public Person() { }
 
         /// <summary>
         /// Метод для обращения к private полям
@@ -55,7 +55,7 @@ namespace Model
             Gender = gender;
         }
 
-        public Person() : this("Viktor", "Bibikov", 23, Gender.Male) { }
+       // public Person() : this("Viktor", "Bibikov", 23, Gender.Male) { }
 
         /// <summary>
         /// Регулярные выражения для проверки имени, фамиии и возраста
@@ -71,8 +71,8 @@ namespace Model
         /// <returns>true - Данные корректны, false - некорерктны</returns>
         private bool CheckNameAndSurname(string NameOrSurname)
         {
-            return (CheckRussian.IsMatch(NameOrSurname) || 
-                CheckEnglish.IsMatch(NameOrSurname));
+            return CheckRussian.IsMatch(NameOrSurname) || 
+                CheckEnglish.IsMatch(NameOrSurname);
         }
 
         /// <summary>
@@ -83,10 +83,10 @@ namespace Model
         /// <returns></returns>
         private bool CheckLanguage(string CheckName, string CheckSurname)
         {
-            return (((CheckRussian.IsMatch(CheckName) && 
-                CheckRussian.IsMatch(CheckSurname))) || 
-                (CheckEnglish.IsMatch(CheckName) && 
-                CheckEnglish.IsMatch(CheckSurname)));
+            return (CheckEnglish.IsMatch(CheckName) && 
+                CheckEnglish.IsMatch(CheckSurname)) || 
+                (CheckRussian.IsMatch(CheckName) && 
+                CheckRussian.IsMatch(CheckSurname));
         }
 
         /// <summary>
