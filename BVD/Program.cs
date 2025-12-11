@@ -8,6 +8,7 @@ namespace BVD
     /// </summary>
     internal class Program
     {
+        //TODO: RSDN
         /// <summary>
         /// Основной метод для выполнения программы
         /// </summary>
@@ -74,64 +75,67 @@ namespace BVD
         /// <returns>Человек</returns>
         public static Person ReadPerson()
         {
+            //TODO: RSDN
             Person PersonRead = new Person();
 
             var actionList = new List<PropertyHandlerTDO>
-                {
-                    new PropertyHandlerTDO("имя",
-                        new List<Type>
+            {
+                new PropertyHandlerTDO("имя",
+                    new List<Type>
+                        {
+                           typeof(ArgumentNullException),
+                           typeof(TypeAccessException),
+                        },
+                    () => { PersonRead.Name = Console.ReadLine(); }),
+                new PropertyHandlerTDO("фамилию",
+                    new List<Type>
+                        {
+                           typeof(ArgumentNullException),
+                           typeof(TypeAccessException),
+                        },
+                    () => { PersonRead.Surname = Console.ReadLine(); }),
+                new PropertyHandlerTDO("возраст",
+                    new List<Type>
+                        {
+                           typeof(IndexOutOfRangeException)
+                        },
+                    () => { PersonRead.Age = int.Parse(
+                        (Console.ReadLine())); }),
+                new PropertyHandlerTDO("пол",
+                    new List<Type>
+                        {
+                           typeof(ArgumentNullException),
+                           typeof(ArgumentException),
+                        },
+                    () => { 
+                        //TODO: RSDN
+                        string[] gender_male_list = ["мужчина", 
+                        "м", "1", "man", "m"];
+                            string[] gender_female_list = ["женщина", 
+                        "ж", "0", "woman", "w"];
+                            string ReadGenderPerson = Console.ReadLine();
+                            if (gender_male_list.Contains(
+                                ReadGenderPerson.ToLower()))
                             {
-                               typeof(ArgumentNullException),
-                               typeof(TypeAccessException),
-                            },
-                        () => { PersonRead.Name = Console.ReadLine(); }),
-                     new PropertyHandlerTDO("фамилию",
-                        new List<Type>
+                                PersonRead.Gender = Gender.Male;
+                            }
+                            else if (gender_female_list.Contains(
+                                ReadGenderPerson.ToLower()))
                             {
-                               typeof(ArgumentNullException),
-                               typeof(TypeAccessException),
-                            },
-                        () => { PersonRead.Surname = Console.ReadLine(); }),
-                      new PropertyHandlerTDO("возраст",
-                        new List<Type>
+                                PersonRead.Gender = Gender.Female;
+                            }
+                            else
                             {
-                               typeof(IndexOutOfRangeException)
-                            },
-                        () => { PersonRead.Age = int.Parse(
-                            (Console.ReadLine())); }),
-                       new PropertyHandlerTDO("пол",
-                        new List<Type>
-                            {
-                               typeof(ArgumentNullException),
-                               typeof(ArgumentException),
-                            },
-                        () => { string[] gender_male_list = ["мужчина", 
-                            "м", "1", "man", "m"];
-                                string[] gender_female_list = ["женщина", 
-                            "ж", "0", "woman", "w"];
-                                string ReadGenderPerson = Console.ReadLine();
-                                if (gender_male_list.Contains(
-                                    ReadGenderPerson.ToLower()))
-                                {
-                                    PersonRead.Gender = Gender.Male;
-                                }
-                                else if (gender_female_list.Contains(
-                                    ReadGenderPerson.ToLower()))
-                                {
-                                    PersonRead.Gender = Gender.Female;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException(
-                                        "Для мужчин значения пола могут" +
-                                        " иметь значения 'мужчина', 'м', '1', " +
-                                        "'man', 'm'\n" +
-                                         "Для женщин " +
-                                         "значения пола могут" +
-                                         " иметь значения 'женщина'" +
-                                         ", 'ж', '0', 'woman', 'w'");
-                                }
-                                })
+                                throw new ArgumentException(
+                                    "Для мужчин значения пола могут" +
+                                    " иметь значения 'мужчина', 'м', '1', " +
+                                    "'man', 'm'\n" +
+                                     "Для женщин " +
+                                     "значения пола могут" +
+                                     " иметь значения 'женщина'" +
+                                     ", 'ж', '0', 'woman', 'w'");
+                            }
+                    })
 
             };
 
@@ -176,6 +180,7 @@ namespace BVD
         /// <returns>Персона</returns>
         public static Person GetRandomPerson()
         {
+            //TODO: RSDN
             string[] NameMaleList = ["Александр", "Дмитрий", "Сергей", "Иван", "Максим",
                                         "Николай", "Павел", "Роман", "Игорь", "Андрей",
                                         "Владимир", "Тимур", "Евгений", "Федор", "Кирилл",

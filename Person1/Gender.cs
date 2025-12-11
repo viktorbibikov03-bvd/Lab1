@@ -9,6 +9,7 @@
         /// Мужской пол
         /// </summary>
         Male,
+
         /// <summary>
         /// Женский пол
         /// </summary>
