@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace BVD
 {
     //TODO: XML
+    /// <summary>
+    /// Класс параметров атрибутов для людей
+    /// </summary>
     public class PropertyHandlerTDO
     {
         /// <summary>

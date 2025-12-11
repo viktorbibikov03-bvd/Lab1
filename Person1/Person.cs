@@ -11,27 +11,27 @@ namespace Model
     public class Person
     {
         /// <summary>
-        /// Имя
+        /// Имя человека
         /// </summary>
-        private string _name { get; set; }
+        private string _name;
 
-        //TODO: ?
+        //TODO: ? +
         /// <summary>
-        /// Фамилия
+        /// Фамилия человека
         /// </summary>
-        private string _surname { get; set; }
+        private string _surname;
 
-        //TODO: ?
+        //TODO: ? +
         /// <summary>
-        /// Возраст
+        /// Возраст человека
         /// </summary>
-        private int _age { get; set; }
+        private int _age;
 
-        //TODO: ?
+        //TODO: ? +
         /// <summary>
-        /// Пол
+        /// Пол человека
         /// </summary>
-        private Gender _gender { get; set; }
+        private Gender _gender;
 
         /// <summary>
         /// Флаг, что у экземпляра задано либо имя либо фаилия
@@ -70,28 +70,28 @@ namespace Model
         /// <summary>
         /// Проверка имени и фамилии на корректность
         /// </summary>
-        /// <param name="NameOrSurname">Имя или фамилия</param>
+        /// <param name="nameOrSurname">Имя или фамилия</param>
         /// <returns>true - Данные корректны, false - некорерктны</returns>
-        /// //TODO: RSDN
-        private bool CheckNameAndSurname(string NameOrSurname)
+        /// //TODO: RSDN +
+        private bool CheckNameAndSurname(string nameOrSurname)
         {
-            return CheckRussian.IsMatch(NameOrSurname) || 
-                CheckEnglish.IsMatch(NameOrSurname);
+            return CheckRussian.IsMatch(nameOrSurname) || 
+                CheckEnglish.IsMatch(nameOrSurname);
         }
 
         /// <summary>
         /// Проверка символов имени и фамилии на идентичность алфавита
         /// </summary>
-        /// <param name="CheckName">Имя</param>
-        /// <param name="CheckSurname">Фамилия</param>
+        /// <param name="сheckName">Имя</param>
+        /// <param name="сheckSurname">Фамилия</param>
         /// <returns></returns>
-        /// //TODO: RSDN
-        private bool CheckLanguage(string CheckName, string CheckSurname)
+        /// //TODO: RSDN +
+        private bool CheckLanguage(string сheckName, string сheckSurname)
         {
-            return (CheckEnglish.IsMatch(CheckName) && 
-                CheckEnglish.IsMatch(CheckSurname)) || 
-                (CheckRussian.IsMatch(CheckName) && 
-                CheckRussian.IsMatch(CheckSurname));
+            return (CheckEnglish.IsMatch(сheckName) && 
+                CheckEnglish.IsMatch(сheckSurname)) || 
+                (CheckRussian.IsMatch(сheckName) && 
+                CheckRussian.IsMatch(сheckSurname));
         }
 
         /// <summary>
@@ -213,6 +213,7 @@ namespace Model
                 _gender = value;
             }
         }
+
         /// <summary>
         /// Проверка пола человека
         /// </summary>
@@ -226,18 +227,21 @@ namespace Model
             {
                 case Gender.Male:
                 { 
-                        //TODO: RSDN
-                    gender = "Мужчина"; break;
+                        //TODO: RSDN +
+                    gender = "Мужчина"; 
+                    break;
                 }
                 case Gender.Female:
                 {
-                    //TODO: RSDN
-                    gender = "Женщина"; break;
+                    //TODO: RSDN +
+                    gender = "Женщина"; 
+                    break;
                 }
                 default:
                 {
-                    //TODO: RSDN
-                    gender = "Введите свой пол!"; break;
+                    //TODO: RSDN +
+                    gender = "Введите свой пол!"; 
+                    break;
                 }
             }
             return $"Человек {person.Name} {person.Surname} - {gender}";

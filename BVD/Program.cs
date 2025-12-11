@@ -8,50 +8,50 @@ namespace BVD
     /// </summary>
     internal class Program
     {
-        //TODO: RSDN
+        //TODO: RSDN +
         /// <summary>
-        /// Основной метод для выполнения программы
+        /// Точка входа в программу
         /// </summary>
         /// <param name="args"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">Исключения</exception>
         static void Main(string[] args)
         {
-            PersonList PersonList1 = new PersonList();
-            PersonList PersonList2 = new PersonList();
+            PersonList personList1 = new PersonList();
+            PersonList personList2 = new PersonList();
             Console.WriteLine("Создение первого списка персон с помощью ввода");
 
             for (int i = 0; i < 3; i++)
             {
-                PersonList1.AddPerson(ReadPerson());
+                personList1.AddPerson(ReadPerson());
             }
             Console.WriteLine();
             Console.WriteLine("Создение второго списка персон рандомно");
 
             for (int i = 0; i < 3; i++)
             {
-                PersonList2.AddPerson(GetRandomPerson());
+                personList2.AddPerson(GetRandomPerson());
             }
             Console.WriteLine();
-            Print(PersonList1, PersonList2);
+            Print(personList1, personList2);
             Console.ReadKey();
 
-            PersonList1.AddPerson(GetRandomPerson());
+            personList1.AddPerson(GetRandomPerson());
             Console.WriteLine();
-            PersonList2.AddPerson(PersonList1.GetPersonInIndex(1));
+            personList2.AddPerson(personList1.GetPersonInIndex(1));
             Console.WriteLine("Добавление нового человека в первый список");
 
             Console.WriteLine("Копия второго человека из первого списка во второй");
-            Print(PersonList1, PersonList2);
+            Print(personList1, personList2);
             Console.ReadKey();
 
-            PersonList1.RemovePersonInIndex(1);
+            personList1.RemovePersonInIndex(1);
             Console.WriteLine("Удаление второго человека из первого списка");
-            Print(PersonList1, PersonList2);
+            Print(personList1, personList2);
             Console.ReadKey();
 
-            PersonList2.Clear();
+            personList2.Clear();
             Console.WriteLine("Очистка второго списка");
-            Print(PersonList1, PersonList2);
+            Print(personList1, personList2);
             Console.ReadKey();
         }
 
@@ -75,54 +75,54 @@ namespace BVD
         /// <returns>Человек</returns>
         public static Person ReadPerson()
         {
-            //TODO: RSDN
-            Person PersonRead = new Person();
+            //TODO: RSDN +
+            Person personRead = new Person();
 
             var actionList = new List<PropertyHandlerTDO>
             {
                 new PropertyHandlerTDO("имя",
                     new List<Type>
                         {
-                           typeof(ArgumentNullException),
-                           typeof(TypeAccessException),
+                            typeof(ArgumentNullException),
+                            typeof(TypeAccessException),
                         },
-                    () => { PersonRead.Name = Console.ReadLine(); }),
+                    () => { personRead.Name = Console.ReadLine(); }),
                 new PropertyHandlerTDO("фамилию",
                     new List<Type>
                         {
-                           typeof(ArgumentNullException),
-                           typeof(TypeAccessException),
+                            typeof(ArgumentNullException),
+                            typeof(TypeAccessException),
                         },
-                    () => { PersonRead.Surname = Console.ReadLine(); }),
+                    () => { personRead.Surname = Console.ReadLine(); }),
                 new PropertyHandlerTDO("возраст",
                     new List<Type>
                         {
-                           typeof(IndexOutOfRangeException)
+                            typeof(IndexOutOfRangeException)
                         },
-                    () => { PersonRead.Age = int.Parse(
+                    () => { personRead.Age = int.Parse(
                         (Console.ReadLine())); }),
                 new PropertyHandlerTDO("пол",
                     new List<Type>
                         {
-                           typeof(ArgumentNullException),
-                           typeof(ArgumentException),
+                            typeof(ArgumentNullException),
+                            typeof(ArgumentException),
                         },
                     () => { 
-                        //TODO: RSDN
-                        string[] gender_male_list = ["мужчина", 
-                        "м", "1", "man", "m"];
-                            string[] gender_female_list = ["женщина", 
-                        "ж", "0", "woman", "w"];
-                            string ReadGenderPerson = Console.ReadLine();
-                            if (gender_male_list.Contains(
-                                ReadGenderPerson.ToLower()))
+                        //TODO: RSDN +
+                        string[] genderMaleList = {"мужчина",
+                        "м", "1", "man", "m"};
+                            string[] genderFemaleList = {"женщина",
+                        "ж", "0", "woman", "w"};
+                            string readGenderPerson = Console.ReadLine();
+                            if (genderMaleList.Contains(
+                                readGenderPerson.ToLower()))
                             {
-                                PersonRead.Gender = Gender.Male;
+                                personRead.Gender = Gender.Male;
                             }
-                            else if (gender_female_list.Contains(
-                                ReadGenderPerson.ToLower()))
+                            else if (genderFemaleList.Contains(
+                                readGenderPerson.ToLower()))
                             {
-                                PersonRead.Gender = Gender.Female;
+                                personRead.Gender = Gender.Female;
                             }
                             else
                             {
@@ -144,8 +144,8 @@ namespace BVD
                 PersonPropertiesHandler(actionList[i]);
             }
 
-            Console.WriteLine(PersonRead.GetInfo());
-            return PersonRead;
+            Console.WriteLine(personRead.GetInfo());
+            return personRead;
         }
 
         /// <summary>
@@ -180,37 +180,26 @@ namespace BVD
         /// <returns>Персона</returns>
         public static Person GetRandomPerson()
         {
-            //TODO: RSDN
-            string[] NameMaleList = ["Александр", "Дмитрий", "Сергей", "Иван", "Максим",
-                                        "Николай", "Павел", "Роман", "Игорь", "Андрей",
-                                        "Владимир", "Тимур", "Евгений", "Федор", "Кирилл",
-                                        "Денис", "Артем", "Станислав", "Григорий", "Михаил"];
-            string[] NameFemaleList = ["Анастасия", "Екатерина", "Мария", "Ольга", "Татьяна",
-                                        "Наталья", "Светлана", "Елена", "Дарья", "Ксения",
-                                        "Анна", "Юлия", "Виктория",  "Людмила", "Ирина",
-                                        "Алена", "Полина", "Вероника", "София", "Евгения"];
-            string[] LastnameMaleList = ["Иванов", "Петров", "Сидоров", "Кузнецов", "Смирнов",
-                                            "Попов", "Лебедев", "Ковалев", "Новиков", "Морозов",
-                                            "Федоров", "Соловьев", "Григорьев", "Васильев", "Тихонов",
-                                            "Белов", "Зайцев", "Михайлов", "Сергеев", "Алексеев"];
-            string[] LastnameFemaleList = ["Иванова", "Петрова", "Сидорова", "Кузнецова", "Смирнова",
-                                            "Попова", "Лебедева", "Ковалева", "Новикова", "Морозова",
-                                            "Федорова", "Соловьева", "Григорьева", "Васильева", "Тихонова",
-                                            "Белова", "Зайцева", "Михайлова", "Сергеева", "Алексеева"];
-            Gender[] GenderList = [Gender.Male, Gender.Female];
-            Random rnd = new();
+            //TODO: RSDN +
+            string[] nameMaleList = { "Александр", "Дмитрий" };
+            string[] nameFemaleList = { "Анастасия", "Екатерина" };
+            string[] surnameMaleList = { "Иванов", "Петров" };
+            string[] surnameFemaleList = { "Иванова", "Петрова" };
+            Gender[] genderList = { Gender.Male, Gender.Female };
 
-            int GenderIndex = rnd.Next(GenderList.Length);
+            Random random = new();
+
+            int GenderIndex = random.Next(genderList.Length);
 
             string NamePerson = GenderIndex == 0
-                ? NameMaleList[rnd.Next(NameMaleList.Length)]
-                : NameFemaleList[rnd.Next(NameFemaleList.Length)];
+                ? nameMaleList[random.Next(nameMaleList.Length)]
+                : nameFemaleList[random.Next(nameFemaleList.Length)];
             string SurnamePerson = GenderIndex == 0
-                ? LastnameMaleList[rnd.Next(LastnameMaleList.Length)]
-                : LastnameFemaleList[rnd.Next(LastnameFemaleList.Length)];
+                ? surnameMaleList[random.Next(surnameMaleList.Length)]
+                : surnameFemaleList[random.Next(surnameFemaleList.Length)];
 
-            int Age = rnd.Next(Person.MinAge, Person.MaxAge);
-            Gender RandomPersonGender = GenderList[GenderIndex];
+            int Age = random.Next(Person.MinAge, Person.MaxAge);
+            Gender RandomPersonGender = genderList[GenderIndex];
             Person RandomPerson = new Person(NamePerson, SurnamePerson, 
                 Age, RandomPersonGender);
             Console.WriteLine(RandomPerson.GetInfo());
