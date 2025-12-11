@@ -15,24 +15,22 @@ namespace Model
         /// </summary>
         private string _name;
 
-        //TODO: ? +
         /// <summary>
         /// Фамилия человека
         /// </summary>
         private string _surname;
 
-        //TODO: ? +
         /// <summary>
         /// Возраст человека
         /// </summary>
         private int _age;
 
-        //TODO: ? +
         /// <summary>
         /// Пол человека
         /// </summary>
         private Gender _gender;
 
+        //TODO: naming
         /// <summary>
         /// Флаг, что у экземпляра задано либо имя либо фаилия
         /// </summary>
@@ -61,10 +59,13 @@ namespace Model
         /// <summary>
         /// Регулярные выражения для проверки имени, фамиии и возраста
         /// </summary>
+        /// //TODO: RSDN
         private Regex CheckRussian = new Regex(@"^[А-Яа-яёЁ]+(\-[А-Яа-яёЁ]+)?$");
         //TODO: XML
+        //TODO: RSDN
         private Regex CheckEnglish = new Regex(@"^[A-Za-z]+(\-[A-Za-z]+)?$");
         //TODO: XML
+        //TODO: RSDN
         private Regex CheckDigital = new Regex(@"^[0-9]+$");
 
         /// <summary>
@@ -72,7 +73,6 @@ namespace Model
         /// </summary>
         /// <param name="nameOrSurname">Имя или фамилия</param>
         /// <returns>true - Данные корректны, false - некорерктны</returns>
-        /// //TODO: RSDN +
         private bool CheckNameAndSurname(string nameOrSurname)
         {
             return CheckRussian.IsMatch(nameOrSurname) || 
@@ -85,7 +85,6 @@ namespace Model
         /// <param name="сheckName">Имя</param>
         /// <param name="сheckSurname">Фамилия</param>
         /// <returns></returns>
-        /// //TODO: RSDN +
         private bool CheckLanguage(string сheckName, string сheckSurname)
         {
             return (CheckEnglish.IsMatch(сheckName) && 
@@ -227,19 +226,16 @@ namespace Model
             {
                 case Gender.Male:
                 { 
-                        //TODO: RSDN +
                     gender = "Мужчина"; 
                     break;
                 }
                 case Gender.Female:
                 {
-                    //TODO: RSDN +
                     gender = "Женщина"; 
                     break;
                 }
                 default:
                 {
-                    //TODO: RSDN +
                     gender = "Введите свой пол!"; 
                     break;
                 }
