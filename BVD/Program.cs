@@ -18,12 +18,11 @@ namespace BVD
             PersonList PersonList1 = new PersonList();
             PersonList PersonList2 = new PersonList();
             Console.WriteLine("Создение первого списка персон с помощью ввода");
-            
+
             for (int i = 0; i < 3; i++)
             {
                 PersonList1.AddPerson(ReadPerson());
             }
-            PersonList1.AddPerson(ReadPerson());
             Console.WriteLine();
             Console.WriteLine("Создение второго списка персон рандомно");
 
@@ -165,13 +164,8 @@ namespace BVD
                 }
                 catch (Exception exeption)
                 {
-                    if (personTypes.Contains(exeption.GetType()))
-                    {
-                        Console.WriteLine(exeption.Message);
-                        Console.WriteLine($"Введите {personField} заново");
-                        continue;
-                    }
-                    throw exeption;
+                    Console.WriteLine(exeption.Message);
+                    continue;
                 }
             }
         }
@@ -198,22 +192,22 @@ namespace BVD
                                             "Попова", "Лебедева", "Ковалева", "Новикова", "Морозова",
                                             "Федорова", "Соловьева", "Григорьева", "Васильева", "Тихонова",
                                             "Белова", "Зайцева", "Михайлова", "Сергеева", "Алексеева"];
-            Gender[] SexList = [Gender.Male, Gender.Female];
+            Gender[] GenderList = [Gender.Male, Gender.Female];
             Random rnd = new();
 
-            int SexIndex = rnd.Next(SexList.Length);
+            int GenderIndex = rnd.Next(GenderList.Length);
 
-            string NamePerson = SexIndex == 0
+            string NamePerson = GenderIndex == 0
                 ? NameMaleList[rnd.Next(NameMaleList.Length)]
                 : NameFemaleList[rnd.Next(NameFemaleList.Length)];
-            string LastNamePerson = SexIndex == 0
+            string SurnamePerson = GenderIndex == 0
                 ? LastnameMaleList[rnd.Next(LastnameMaleList.Length)]
                 : LastnameFemaleList[rnd.Next(LastnameFemaleList.Length)];
 
             int Age = rnd.Next(Person.MinAge, Person.MaxAge);
-            Gender RandomPersonSex = SexList[SexIndex];
-            Person RandomPerson = new Person(NamePerson, LastNamePerson, 
-                Age, RandomPersonSex);
+            Gender RandomPersonGender = GenderList[GenderIndex];
+            Person RandomPerson = new Person(NamePerson, SurnamePerson, 
+                Age, RandomPersonGender);
             Console.WriteLine(RandomPerson.GetInfo());
             return RandomPerson;
         }

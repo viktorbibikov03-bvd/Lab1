@@ -114,7 +114,8 @@ namespace Model
 
                 if (!CheckNameAndSurname(value))
                 {
-                    throw new Exception("Имя должно содержать только буквы!");
+                    throw new Exception("Имя должно содержать только русские" +
+                        " или только английские буквы!");
                 }
 
                 if (_flagname && !CheckLanguage(value, _surname))

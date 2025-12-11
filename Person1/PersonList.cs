@@ -95,6 +95,9 @@ namespace Model
         {
             ListPerson.Clear();
         }
+        /// <summary>
+        /// Размер листа с людьми
+        /// </summary>
         public int Count => ListPerson.Count;
     }
 }
