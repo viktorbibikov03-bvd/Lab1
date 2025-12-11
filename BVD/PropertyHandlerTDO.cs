@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BVD
 {
+    //TODO: XML
     public class PropertyHandlerTDO
     {
         /// <summary>

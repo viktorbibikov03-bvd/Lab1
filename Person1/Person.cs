@@ -15,16 +15,19 @@ namespace Model
         /// </summary>
         private string _name { get; set; }
 
+        //TODO: ?
         /// <summary>
         /// Фамилия
         /// </summary>
         private string _surname { get; set; }
 
+        //TODO: ?
         /// <summary>
         /// Возраст
         /// </summary>
         private int _age { get; set; }
 
+        //TODO: ?
         /// <summary>
         /// Пол
         /// </summary>
@@ -55,13 +58,13 @@ namespace Model
             Gender = gender;
         }
 
-       // public Person() : this("Viktor", "Bibikov", 23, Gender.Male) { }
-
         /// <summary>
         /// Регулярные выражения для проверки имени, фамиии и возраста
         /// </summary>
         private Regex CheckRussian = new Regex(@"^[А-Яа-яёЁ]+(\-[А-Яа-яёЁ]+)?$");
+        //TODO: XML
         private Regex CheckEnglish = new Regex(@"^[A-Za-z]+(\-[A-Za-z]+)?$");
+        //TODO: XML
         private Regex CheckDigital = new Regex(@"^[0-9]+$");
 
         /// <summary>
@@ -69,6 +72,7 @@ namespace Model
         /// </summary>
         /// <param name="NameOrSurname">Имя или фамилия</param>
         /// <returns>true - Данные корректны, false - некорерктны</returns>
+        /// //TODO: RSDN
         private bool CheckNameAndSurname(string NameOrSurname)
         {
             return CheckRussian.IsMatch(NameOrSurname) || 
@@ -81,6 +85,7 @@ namespace Model
         /// <param name="CheckName">Имя</param>
         /// <param name="CheckSurname">Фамилия</param>
         /// <returns></returns>
+        /// //TODO: RSDN
         private bool CheckLanguage(string CheckName, string CheckSurname)
         {
             return (CheckEnglish.IsMatch(CheckName) && 
@@ -221,14 +226,17 @@ namespace Model
             {
                 case Gender.Male:
                 { 
+                        //TODO: RSDN
                     gender = "Мужчина"; break;
                 }
                 case Gender.Female:
                 {
+                    //TODO: RSDN
                     gender = "Женщина"; break;
                 }
                 default:
                 {
+                    //TODO: RSDN
                     gender = "Введите свой пол!"; break;
                 }
             }
