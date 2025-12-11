@@ -111,31 +111,31 @@ namespace BVD
                         //TODO: RSDN +
                         string[] genderMaleList = {"мужчина",
                         "м", "1", "man", "m"};
-                            string[] genderFemaleList = {"женщина",
+                        string[] genderFemaleList = {"женщина",
                         "ж", "0", "woman", "w"};
-                            string readGenderPerson = Console.ReadLine();
-                            if (genderMaleList.Contains(
-                                readGenderPerson.ToLower()))
-                            {
-                                personRead.Gender = Gender.Male;
-                            }
-                            else if (genderFemaleList.Contains(
-                                readGenderPerson.ToLower()))
-                            {
-                                personRead.Gender = Gender.Female;
-                            }
-                            else
-                            {
-                                throw new ArgumentException(
-                                    "Для мужчин значения пола могут" +
-                                    " иметь значения 'мужчина', 'м', '1', " +
-                                    "'man', 'm'\n" +
-                                     "Для женщин " +
-                                     "значения пола могут" +
-                                     " иметь значения 'женщина'" +
-                                     ", 'ж', '0', 'woman', 'w'");
-                            }
-                    })
+                        string readGenderPerson = Console.ReadLine();
+                        if (genderMaleList.Contains(
+                            readGenderPerson.ToLower()))
+                        {
+                            personRead.Gender = Gender.Male;
+                        }
+                        else if (genderFemaleList.Contains(
+                            readGenderPerson.ToLower()))
+                        {
+                            personRead.Gender = Gender.Female;
+                        }
+                        else
+                        {
+                            throw new ArgumentException(
+                                "Для мужчин значения пола могут" +
+                                " иметь значения 'мужчина', 'м', '1', " +
+                                "'man', 'm'\n" +
+                                 "Для женщин " +
+                                 "значения пола могут" +
+                                 " иметь значения 'женщина'" +
+                                 ", 'ж', '0', 'woman', 'w'");
+                        }
+                          })
 
             };
 
