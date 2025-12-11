@@ -13,7 +13,7 @@ namespace Model
         /// <summary>
         /// Имя
         /// </summary>
-        private string _name;
+        private string _name { get; set; }
 
         /// <summary>
         /// Фамилия
