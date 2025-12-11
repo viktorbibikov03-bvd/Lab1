@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BVD
 {
-    //TODO: XML
+    //TODO: ?
     /// <summary>
     /// Класс параметров атрибутов для людей
     /// </summary>

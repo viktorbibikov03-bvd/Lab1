@@ -8,7 +8,6 @@ namespace BVD
     /// </summary>
     internal class Program
     {
-        //TODO: RSDN +
         /// <summary>
         /// Точка входа в программу
         /// </summary>
@@ -75,7 +74,6 @@ namespace BVD
         /// <returns>Человек</returns>
         public static Person ReadPerson()
         {
-            //TODO: RSDN +
             Person personRead = new Person();
 
             var actionList = new List<PropertyHandlerTDO>
@@ -108,8 +106,8 @@ namespace BVD
                             typeof(ArgumentException),
                         },
                     () => { 
-                        //TODO: RSDN +
-                        string[] genderMaleList = {"мужчина",
+                        //TODO: RSDN
+                            string[] genderMaleList = {"мужчина",
                         "м", "1", "man", "m"};
                             string[] genderFemaleList = {"женщина",
                         "ж", "0", "woman", "w"};
@@ -180,7 +178,6 @@ namespace BVD
         /// <returns>Персона</returns>
         public static Person GetRandomPerson()
         {
-            //TODO: RSDN +
             string[] nameMaleList = { "Александр", "Дмитрий" };
             string[] nameFemaleList = { "Анастасия", "Екатерина" };
             string[] surnameMaleList = { "Иванов", "Петров" };
