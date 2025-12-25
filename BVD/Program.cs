@@ -1,5 +1,6 @@
 ﻿using Model;
 using System;
+using System.Xml.Linq;
 
 namespace BVD
 {
@@ -15,161 +16,323 @@ namespace BVD
         /// <exception cref="Exception">Исключения</exception>
         static void Main(string[] args)
         {
-            PersonList personList1 = new PersonList();
-            PersonList personList2 = new PersonList();
-            Console.WriteLine("Создение первого списка персон с помощью ввода");
+            var (firstPersonList, secondPersonList) = InitializeObjects();
 
-            for (int i = 0; i < 3; i++)
+            var testDictionary = new Dictionary<string, Action>
             {
-                personList1.AddPerson(ReadPerson());
-            }
-            Console.WriteLine();
-            Console.WriteLine("Создение второго списка персон рандомно");
-
-            for (int i = 0; i < 3; i++)
-            {
-                personList2.AddPerson(GetRandomPerson());
-            }
-            Console.WriteLine();
-            Print(personList1, personList2);
-            Console.ReadKey();
-
-            personList1.AddPerson(GetRandomPerson());
-            Console.WriteLine();
-            personList2.AddPerson(personList1.GetPersonInIndex(1));
-            Console.WriteLine("Добавление нового человека в первый список");
-
-            Console.WriteLine("Копия второго человека из первого списка во второй");
-            Print(personList1, personList2);
-            Console.ReadKey();
-
-            personList1.RemovePersonInIndex(1);
-            Console.WriteLine("Удаление второго человека из первого списка");
-            Print(personList1, personList2);
-            Console.ReadKey();
-
-            personList2.Clear();
-            Console.WriteLine("Очистка второго списка");
-            Print(personList1, personList2);
-            Console.ReadKey();
-        }
-
-        /// <summary>
-        /// Вывод списков людей
-        /// </summary>
-        /// <param name="personList1">Первый список людей</param>
-        /// <param name="personList2">Второй список людей</param>
-        internal static void Print(PersonList personList1, PersonList personList2)
-        {
-            Console.WriteLine("Список 1:");
-            personList1.PersonInfoFromPersonList();
-            Console.WriteLine("Список 2:");
-            personList2.PersonInfoFromPersonList();
-        }
-
-        /// <summary>
-        /// Создает экземпляр класса Person со значениями атрибутов, 
-        /// введенными с клавиатуры 
-        /// </summary>
-        /// <returns>Человек</returns>
-        public static Person ReadPerson()
-        {
-            Person personRead = new Person();
-
-            var actionList = new List<PropertyHandlerTDO>
-            {
-                new PropertyHandlerTDO("имя",
-                    new List<Type>
-                        {
-                            typeof(ArgumentNullException),
-                            typeof(TypeAccessException),
-                        },
-                    () => { personRead.Name = Console.ReadLine(); }),
-                new PropertyHandlerTDO("фамилию",
-                    new List<Type>
-                        {
-                            typeof(ArgumentNullException),
-                            typeof(TypeAccessException),
-                        },
-                    () => { personRead.Surname = Console.ReadLine(); }),
-                new PropertyHandlerTDO("возраст",
-                    new List<Type>
-                        {
-                            typeof(IndexOutOfRangeException)
-                        },
-                    () => { personRead.Age = int.Parse(
-                        (Console.ReadLine())); }),
-                new PropertyHandlerTDO("пол",
-                    new List<Type>
-                        {
-                            typeof(ArgumentNullException),
-                            typeof(ArgumentException),
-                        },
-                    () => { 
-                        //TODO: RSDN
-                            string[] genderMaleList = {"мужчина",
-                        "м", "1", "man", "m"};
-                        string[] genderFemaleList = {"женщина",
-                        "ж", "0", "woman", "w"};
-                        string readGenderPerson = Console.ReadLine();
-                        if (genderMaleList.Contains(
-                            readGenderPerson.ToLower()))
-                        {
-                            personRead.Gender = Gender.Male;
-                        }
-                        else if (genderFemaleList.Contains(
-                            readGenderPerson.ToLower()))
-                        {
-                            personRead.Gender = Gender.Female;
-                        }
-                        else
-                        {
-                            throw new ArgumentException(
-                                "Для мужчин значения пола могут" +
-                                " иметь значения 'мужчина', 'м', '1', " +
-                                "'man', 'm'\n" +
-                                 "Для женщин " +
-                                 "значения пола могут" +
-                                 " иметь значения 'женщина'" +
-                                 ", 'ж', '0', 'woman', 'w'");
-                        }
-                          })
-
+                ["Вывод содержимого списков"] = () =>
+                    PrintList(firstPersonList, secondPersonList),
+                ["Добавление нового человека"] = () =>
+                    AddPerson(firstPersonList),
+                ["Копирование человека"] = () =>
+                    CopyPerson(firstPersonList, secondPersonList),
+                ["Удаление человека"] = () =>
+                    RemovePerson(firstPersonList, secondPersonList),
+                ["Очиска списка"] = () =>
+                    ClearList(secondPersonList),
+                ["Генерация случайного человека"] = () =>
+                    GeneratePerson(),
+                ["Ввод нового человека"] = () =>
+                    InputPerson()
             };
 
-            for (int i = 0; i < actionList.Count; i++)
-            {
-                PersonPropertiesHandler(actionList[i]);
-            }
+            StartTesting(testDictionary);
+        }
 
-            Console.WriteLine(personRead.GetInfo());
-            return personRead;
+        public static (PersonList firstList, PersonList secondList)
+        InitializeObjects()
+        {
+            Console.WriteLine("Создание списков...");
+
+            Person person1 = new Person("Виктор", "Бибиков", 23, Gender.Male);
+            Person person2 = new Person("Дастиен", "Швайнштайгер", 30, Gender.Male);
+            Person person3 = new Person("Любовь", "Подопригора", 24, Gender.Female);
+            Person person4 = new Person("Александр", "Данилов", 45, Gender.Male);
+            Person person5 = new Person("Матвей", "Бибиков", 18, Gender.Female);
+            Person person6 = new Person("Альбина", "Бибикова", 34, Gender.Male);
+
+            PersonList firstPersonList = new PersonList(new Person[]
+            {
+                person1,
+                person2,
+                person3
+            });
+
+            PersonList secondPersonList = new Model.PersonList(new Person[]
+            {
+                person4,
+                person5,
+                person6
+            });
+
+            Console.WriteLine("Списки созданы!");
+            WaitForKey();
+
+            return (firstPersonList, secondPersonList);
         }
 
         /// <summary>
-        /// Метод распаковки actionList
+        /// Метод, запускающий тест функционала
         /// </summary>
-        /// <param name="propertyHandelerDto">actionList</param>
-        private static void PersonPropertiesHandler(
-            PropertyHandlerTDO propertyHandelerDto)
+        /// <param name="testDictionary">Словарь, хранящий лямбда-выражения</param>
+        public static void StartTesting(Dictionary<string, Action> testDictionary)
         {
-            var personField = propertyHandelerDto.PropertyName;
-            var personTypes = propertyHandelerDto.ExceptionTypes;
-            var personAction = propertyHandelerDto.PropertyHandlingAction;
-            Console.WriteLine($"Введите {personField} персоны:");
+            foreach (var test in testDictionary)
+            {
+                Console.WriteLine($"==={test.Key}===\n");
+                test.Value();
+                WaitForKey();
+            }
+        }
+
+        /// <summary>
+        /// Метод для вывода списков
+        /// </summary>
+        /// <param name="firstPersonList">Первый список</param>
+        /// <param name="secondPersonList">Второй список</param>
+        public static void PrintList(PersonList firstPersonList,
+            PersonList secondPersonList)
+        {
+            PrintList(firstPersonList, "Первый список");
+            PrintList(secondPersonList, "Второй список");
+        }
+
+        /// <summary>
+        /// Метод теста добавления человека в первый список
+        /// </summary>
+        /// <param name="firstPersonList">Первый список</param>
+        public static void AddPerson(PersonList firstPersonList)
+        {
+            Person person7 = new Person("Аркадий", "Сидоров", 40, Gender.Male);
+            firstPersonList.AddPerson(person7);
+            Console.WriteLine($"В первый список добавлен {person7.Name}" +
+                $" {person7.Surname}");
+            PrintList(firstPersonList, "Первый список");
+        }
+
+        /// <summary>
+        /// Метод теста копирования человека из первого списка во второй
+        /// </summary>
+        /// <param name="firstPersonList">Первый список</param>
+        /// <param name="secondPersonList">Второй список</param>
+        public static void CopyPerson(PersonList firstPersonList,
+            PersonList secondPersonList)
+        {
+            Person copiedPerson = firstPersonList.GetPersonInIndex(1);
+            secondPersonList.AddPerson(copiedPerson);
+            Console.WriteLine($"Во второй список скопирован" +
+                $" {copiedPerson.Name} {copiedPerson.Surname}");
+            PrintList(firstPersonList, "Первый список");
+            PrintList(secondPersonList, "Обновленный второй список");
+        }
+
+        /// <summary>
+        /// Метод для удаления человека из первого списка
+        /// </summary>
+        /// <param name="firstPersonList">Первый список</param>
+        /// <param name="secondPersonList">Второй список</param>
+        public static void RemovePerson(PersonList firstPersonList,
+            PersonList secondPersonList)
+        {
+            firstPersonList.RemovePersonInIndex(2);
+            Console.WriteLine("В первом списке удален третий человек");
+            PrintList(firstPersonList, "Первый список после удаления");
+            PrintList(secondPersonList, "Второй список");
+        }
+
+        /// <summary>
+        /// Очистка списка
+        /// </summary>
+        /// <param name="secondPersonList">Первый список</param>
+        public static void ClearList(PersonList secondPersonList)
+        {
+            secondPersonList.Clear();
+            PrintList(secondPersonList, "Очищенный список");
+        }
+
+        /// <summary>
+        /// Генерация человека
+        /// </summary>
+        public static void GeneratePerson()
+        {
+            Person person = GetRandomPerson();
+            PrintPerson(person);
+        }
+
+        /// <summary>
+        /// Ввод человека с клавиатуры
+        /// </summary>
+        public static void InputPerson()
+        {
+            Person person = InputFromConsole();
+            PrintPerson(person);
+        }
+
+        /// <summary>
+        /// Метод ввода пользователя с клавиатуры
+        /// </summary>
+        /// <returns>Объект класса Person</returns>
+        /// <exception cref="Exception">Возникает, если пол введен
+        /// в некорректном формате </exception>
+        public static Person InputFromConsole()
+        {
+            Person person = new Person();
+
+            var inputDictionary = new Dictionary<string, Action>()
+            {
+                {
+                    "Имя",
+                    new Action(() =>
+                        {
+                            string input = Console.ReadLine();
+                            if (!Person.CheckNameAndSurname(input))
+                            {
+                                throw new Exception("Имя должно " +
+                                    "содержать только буквы!");
+                            }
+    
+                            person.Name = input;
+                        })
+                },
+                {
+                    "Фамилию",
+                    new Action(() =>
+                        {
+                            string input = Console.ReadLine();
+                            if (!Person.CheckNameAndSurname(input))
+                            {
+                                throw new Exception("Фамилия должна " +
+                                    "содержать только буквы!");
+                            }
+                  
+                            person.Surname = input;
+                        })
+                },
+                {
+                    "Возраст",
+                    new Action(() =>
+                        {
+                            if (int.TryParse(Console.ReadLine(), out int age))
+                            {
+                                person.Age = age;
+                            }
+                            else
+                            {
+                                throw new Exception(
+                                    "В поле 'Возраст' необходимо вводить " +
+                                    "число!");
+                            }
+                        })
+                },
+                {
+                    "Пол",
+                    new Action(() =>
+                        {
+                            Console.Write("(1 - мужской, 2 - женский): ");
+
+                            string inputNumber = Console.ReadLine();
+
+                            switch (inputNumber)
+                            {
+                                case "1":
+                                {
+                                    person.Gender = Gender.Male;
+                                    break;
+                                }
+                                case "2":
+                                {
+                                    person.Gender = Gender.Female;
+                                    break;
+                                }
+                                default:
+                                {
+                                    throw new Exception("Введите число 1, " +
+                                        "если вы мужчина и число 2, " +
+                                        "если вы женщина");
+                                }
+                            }
+                        })
+                }
+            };
+
+            foreach (var actionHandler in inputDictionary)
+            {
+                ActionHandler(actionHandler.Value, actionHandler.Key);
+            }
+
+            return person;
+        }
+
+        /// <summary>
+        /// Метод, выполняющий действия в оболочке try и while
+        /// </summary>
+        /// <param name="action">Действие</param>
+        /// <param name="enteredValue">Введенная строка</param>
+        public static void ActionHandler(Action action, string enteredValue)
+        {
             while (true)
             {
                 try
                 {
-                    personAction.Invoke();
-                    break;
+                    Console.Write($"Пожалуйста, " +
+                        $"введите {enteredValue} человека: ");
+                    action.Invoke();
+                    return;
                 }
-                catch (Exception exeption)
+                catch (Exception exception)
                 {
-                    Console.WriteLine(exeption.Message);
-                    continue;
+                    Console.WriteLine(exception.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Вывод информации о человеке
+        /// </summary>
+        public static void PrintPerson(Person person)
+        {
+            Console.WriteLine($"Человек {person.Name} {person.Surname}" +
+                $" в возрасте {person.Age} имеет {GetGender(person)} пол");
+        }
+
+        /// <summary>
+        /// Метод получения пола
+        /// </summary>
+        /// <returns></returns>
+        /// <summary>
+        /// Метод получения пола
+        /// </summary>
+        /// <returns></returns>
+        private static string GetGender(Person person)
+        {
+            return person.Gender == Gender.Male ? "Мужской" : "Женский";
+        }
+
+        /// <summary>
+        /// Выводит список людей на экран
+        /// </summary>
+        /// <param name="list">Список для вывода</param>
+        /// <param name="listName">Название списка</param>
+        private static void PrintList(PersonList list, string listName)
+        {
+            Console.WriteLine(listName);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                Person person = list.GetPersonInIndex(i);
+                Console.Write($"    {i + 1}) ");
+                PrintPerson(person);
+            }
+        }
+
+        /// <summary>
+        /// Метод для паузы между пунктами программы
+        /// </summary>
+        private static void WaitForKey()
+        {
+            Console.WriteLine("\nНажмите любую клавишу, чтобы продолжить");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -197,9 +360,8 @@ namespace BVD
 
             int Age = random.Next(Person.MinAge, Person.MaxAge);
             Gender RandomPersonGender = genderList[GenderIndex];
-            Person RandomPerson = new Person(NamePerson, SurnamePerson, 
+            Person RandomPerson = new Person(NamePerson, SurnamePerson,
                 Age, RandomPersonGender);
-            Console.WriteLine(RandomPerson.GetInfo());
             return RandomPerson;
         }
     }

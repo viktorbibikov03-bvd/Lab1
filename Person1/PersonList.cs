@@ -9,29 +9,44 @@ namespace Model
     public class PersonList
     {
         /// <summary>
-        /// Создание листа для хранения информации о людях
+        /// 
         /// </summary>
-        public List<Person> ListPerson { get; } = new List<Person>();
+        private List<Person> _persons;
+
+        /// <summary>
+        /// Конструктор класса по умолчанию
+        /// </summary>
+        public PersonList()
+        {
+            _persons = new List<Person>();
+        }
+
+
+        /// <summary>
+        /// Создает новый список людей с указанными элементами
+        /// </summary>
+        /// <param name="persons">
+        /// Перечисление людей для инициализации списка</param>
+        /// <exception cref="ArgumentNullException">
+        /// Возникает, если параметр <paramref name="persons"/> равен null
+        /// </exception>
+        public PersonList(IEnumerable<Person> persons)
+        {
+            if (persons == null)
+            {
+                throw new ArgumentNullException(nameof(persons));
+            }
+
+            _persons = new List<Person>(persons);
+        }
 
         /// <summary>
         /// Добавление людей в список
         /// </summary>
         /// <param name="person">Человек</param>
         public void AddPerson(Person person)
-        { 
-            ListPerson.Add(person);
-        }
-
-        /// <summary>
-        /// Получение информации о людях в списке
-        /// </summary>
-        public void PersonInfoFromPersonList()
         {
-            foreach (Person person in ListPerson)
-            {
-                Console.WriteLine(person.GetInfo());
-            }
-            Console.WriteLine();
+            _persons.Add(person);
         }
 
         /// <summary>
@@ -41,7 +56,7 @@ namespace Model
         /// <returns>true при наличии, false при отстутствии</returns>
         public bool Contains(Person person)
         {
-            foreach (Person InPerson in ListPerson)
+            foreach (Person InPerson in _persons)
             {
                 if (InPerson == person)
                 {
@@ -57,7 +72,7 @@ namespace Model
         /// <param name="person">Человек</param>
         public void Remove(Person person)
         {
-            ListPerson.Remove(person);
+            _persons.Remove(person);
         }
 
         /// <summary>
@@ -67,7 +82,7 @@ namespace Model
         /// <returns>Человек с заданным индексом</returns>
         public Person GetPersonInIndex(int index)
         {
-            return ListPerson[index];
+            return _persons[index];
         }
 
         /// <summary>
@@ -76,7 +91,7 @@ namespace Model
         /// <param name="index">Индекс</param>
         public void RemovePersonInIndex(int index)
         {
-            ListPerson.Remove(GetPersonInIndex(index));
+            _persons.Remove(GetPersonInIndex(index));
         }
 
         /// <summary>
@@ -86,19 +101,19 @@ namespace Model
         /// <returns>Индекс человека</returns>
         /// <exception cref="ArgumentException">Исключение 
         /// при введении человека, которого нет в списке</exception>
-		public int GetIndex(Person person) => ListPerson.IndexOf(person);
+		public int GetIndex(Person person) => _persons.IndexOf(person);
 
         /// <summary>
         /// Очистка списка людей
         /// </summary>
         public void Clear()
         {
-            ListPerson.Clear();
+            _persons.Clear();
         }
 
         /// <summary>
         /// Размер листа с людьми
         /// </summary>
-        public int Count => ListPerson.Count;
+        public int Count => _persons.Count;
     }
 }
