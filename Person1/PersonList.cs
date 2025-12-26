@@ -21,7 +21,6 @@ namespace Model
             _persons = new List<Person>();
         }
 
-
         /// <summary>
         /// Создает новый список людей с указанными элементами
         /// </summary>
