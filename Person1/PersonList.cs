@@ -9,7 +9,7 @@ namespace Model
     public class PersonList
     {
         /// <summary>
-        /// 
+        /// //TODO: XML
         /// </summary>
         private List<Person> _persons;
 
@@ -20,7 +20,6 @@ namespace Model
         {
             _persons = new List<Person>();
         }
-
 
         /// <summary>
         /// Создает новый список людей с указанными элементами
@@ -56,6 +55,7 @@ namespace Model
         /// <returns>true при наличии, false при отстутствии</returns>
         public bool Contains(Person person)
         {
+            //TODO: RSDN
             foreach (Person InPerson in _persons)
             {
                 if (InPerson == person)
