@@ -53,10 +53,8 @@ namespace Model
         /// <summary>
         /// Регулярное выражение для проверки имени и фамиии на русский алфавит
         /// </summary>
-        /// //TODO: RSDN +
         private static Regex _checkingRussian = new Regex(@"^[А-Яа-яёЁ]+(\-[А-Яа-яёЁ]+)?$");
-        //TODO: XML +
-        //TODO: RSDN +
+        
         /// <summary>
         /// Регулярное выражение для проверки имени и фамиии на английский алфавит
         /// </summary>

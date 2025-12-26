@@ -107,6 +107,7 @@ namespace BVD
         /// <param name="firstPersonList">Первый список</param>
         public static void AddPerson(PersonList firstPersonList)
         {
+            //TODO: rename
             Person person7 = new Person("Аркадий", "Сидоров", 40, Gender.Male);
             firstPersonList.AddPerson(person7);
             Console.WriteLine($"В первый список добавлен {person7.Name}" +
@@ -148,6 +149,7 @@ namespace BVD
         /// Очистка списка
         /// </summary>
         /// <param name="secondPersonList">Первый список</param>
+        /// //TODO: rename
         public static void ClearList(PersonList secondPersonList)
         {
             secondPersonList.Clear();
@@ -353,17 +355,21 @@ namespace BVD
 
             Random random = new();
 
+            //TODO: RSDN
             int GenderIndex = random.Next(genderList.Length);
-
+            //TODO: RSDN
             string NamePerson = GenderIndex == 0
                 ? nameMaleList[random.Next(nameMaleList.Length)]
                 : nameFemaleList[random.Next(nameFemaleList.Length)];
+            //TODO: RSDN
             string SurnamePerson = GenderIndex == 0
                 ? surnameMaleList[random.Next(surnameMaleList.Length)]
                 : surnameFemaleList[random.Next(surnameFemaleList.Length)];
-
+            //TODO: RSDN
             int Age = random.Next(Person.MinAge, Person.MaxAge);
+            //TODO: RSDN
             Gender RandomPersonGender = genderList[GenderIndex];
+            //TODO: RSDN
             Person RandomPerson = new Person(NamePerson, SurnamePerson,
                 Age, RandomPersonGender);
             return RandomPerson;
