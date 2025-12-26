@@ -107,11 +107,11 @@ namespace BVD
         /// <param name="firstPersonList">Первый список</param>
         public static void AddPerson(PersonList firstPersonList)
         {
-            //TODO: rename
-            Person person7 = new Person("Аркадий", "Сидоров", 40, Gender.Male);
-            firstPersonList.AddPerson(person7);
-            Console.WriteLine($"В первый список добавлен {person7.Name}" +
-                $" {person7.Surname}");
+            //TODO: rename +
+            Person person = new Person("Аркадий", "Сидоров", 40, Gender.Male);
+            firstPersonList.AddPerson(person);
+            Console.WriteLine($"В первый список добавлен {person.Name}" +
+                $" {person.Surname}");
             PrintList(firstPersonList, "Первый список");
         }
 
@@ -148,12 +148,12 @@ namespace BVD
         /// <summary>
         /// Очистка списка
         /// </summary>
-        /// <param name="secondPersonList">Первый список</param>
-        /// //TODO: rename
-        public static void ClearList(PersonList secondPersonList)
+        /// <param name="personList">Первый список</param>
+        /// //TODO: rename +
+        public static void ClearList(PersonList personList)
         {
-            secondPersonList.Clear();
-            PrintList(secondPersonList, "Очищенный список");
+            personList.Clear();
+            PrintList(personList, "Очищенный список");
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace BVD
                     new Action(() =>
                         {
                             string input = Console.ReadLine();
-                            if (!Person.CheckNameAndSurname(input))
+                            if (!Person.CheckName(input))
                             {
                                 throw new Exception("Имя должно " +
                                     "содержать только буквы!");
@@ -259,6 +259,7 @@ namespace BVD
                             }
                         })
                 }
+
             };
 
             foreach (var actionHandler in inputDictionary)
@@ -355,24 +356,24 @@ namespace BVD
 
             Random random = new();
 
-            //TODO: RSDN
-            int GenderIndex = random.Next(genderList.Length);
-            //TODO: RSDN
-            string NamePerson = GenderIndex == 0
+            //TODO: RSDN +
+            int genderIndex = random.Next(genderList.Length);
+            //TODO: RSDN +
+            string namePerson = genderIndex == 0
                 ? nameMaleList[random.Next(nameMaleList.Length)]
                 : nameFemaleList[random.Next(nameFemaleList.Length)];
-            //TODO: RSDN
-            string SurnamePerson = GenderIndex == 0
+            //TODO: RSDN +
+            string surnamePerson = genderIndex == 0
                 ? surnameMaleList[random.Next(surnameMaleList.Length)]
                 : surnameFemaleList[random.Next(surnameFemaleList.Length)];
-            //TODO: RSDN
-            int Age = random.Next(Person.MinAge, Person.MaxAge);
-            //TODO: RSDN
-            Gender RandomPersonGender = genderList[GenderIndex];
-            //TODO: RSDN
-            Person RandomPerson = new Person(NamePerson, SurnamePerson,
-                Age, RandomPersonGender);
-            return RandomPerson;
+            //TODO: RSDN +
+            int age = random.Next(Person.MinAge, Person.MaxAge);
+            //TODO: RSDN +
+            Gender randomPersonGender = genderList[genderIndex];
+            //TODO: RSDN +
+            Person randomPerson = new Person(namePerson, surnamePerson,
+                age, randomPersonGender);
+            return randomPerson;
         }
     }
 }

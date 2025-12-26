@@ -9,7 +9,8 @@ namespace Model
     public class PersonList
     {
         /// <summary>
-        /// //TODO: XML
+        /// //TODO: XML +
+        /// Список людей, принимает объект класса Person
         /// </summary>
         private List<Person> _persons;
 
@@ -56,9 +57,9 @@ namespace Model
         public bool Contains(Person person)
         {
             //TODO: RSDN
-            foreach (Person InPerson in _persons)
+            foreach (Person inPerson in _persons)
             {
-                if (InPerson == person)
+                if (inPerson == person)
                 {
                     return true;
                 }

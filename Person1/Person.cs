@@ -31,6 +31,11 @@ namespace Model
         private Gender _gender;
 
         /// <summary>
+        /// Флаг для проверки имени и фамилии на идентичность алфавита
+        /// </summary>
+        private static int _flagLanguage;
+
+        /// <summary>
         /// Метод для обращения к private полям
         /// </summary>
         /// <param name="name">Имя</param>
@@ -61,13 +66,39 @@ namespace Model
         private static Regex _checkingEnglish = new Regex(@"^[A-Za-z]+(\-[A-Za-z]+)?$");
 
         /// <summary>
+        /// Проверка имени на корректность
+        /// </summary>
+        /// <param name="name">Имя или фамилия</param>
+        /// <returns>true - Данные корректны, false - некорерктны</returns>
+        public static bool CheckName(string name)
+        {
+            if (_checkingRussian.IsMatch(name) == true)
+            {
+                _flagLanguage = 10;
+            }
+            if (_checkingEnglish.IsMatch(name) == true) 
+            {
+                _flagLanguage = 11;
+            }
+            return _checkingRussian.IsMatch(name) || 
+                _checkingEnglish.IsMatch(name);
+        }
+
+        /// <summary>
         /// Проверка имени и фамилии на корректность
         /// </summary>
         /// <param name="nameOrSurname">Имя или фамилия</param>
         /// <returns>true - Данные корректны, false - некорерктны</returns>
         public static bool CheckNameAndSurname(string nameOrSurname)
         {
-            return _checkingRussian.IsMatch(nameOrSurname) || 
+            if (((_checkingRussian.IsMatch(nameOrSurname) == true) 
+                && (_flagLanguage != 10)) || 
+                ((_checkingEnglish.IsMatch(nameOrSurname) == true) 
+                && (_flagLanguage != 11)))
+            {
+                throw new Exception("Имя и фамилия должны быть на одном языке!");
+            }
+            return _checkingRussian.IsMatch(nameOrSurname) ||
                 _checkingEnglish.IsMatch(nameOrSurname);
         }
 
