@@ -39,6 +39,10 @@ namespace BVD
             StartTesting(testDictionary);
         }
 
+        /// <summary>
+        /// Метод для инициализации экземпляров
+        /// </summary>
+        /// <returns>Два объекта класса PersonList</returns>
         public static (PersonList firstList, PersonList secondList)
         InitializeObjects()
         {
